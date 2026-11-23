@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sithum De Zoysa</title>
+  <meta name="description" content="Sithum De Zoysa: final-year Electronic and Telecommunication Engineering undergraduate at the University of Moratuwa, working on computer vision and efficient deep learning.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+
+  <!-- ============================== ABOUT ============================== -->
+  <header class="intro">
+    <div class="photo">
+      <img src="assets/photo.jpg" alt="Sithum De Zoysa" onerror="this.remove()">
+      <span class="initials" aria-hidden="true">SD</span>
+    </div>
+    <div>
+      <h1>Sithum De Zoysa</h1>
+      <p class="role">Final-year undergraduate, Electronic &amp; Telecommunication Engineering<br>University of Moratuwa, Sri Lanka</p>
+      <nav class="links">
+        <a href="mailto:sithumdezoysa02@gmail.com">Email</a>
+        <a href="assets/Sithum_De_Zoysa_CV.pdf">CV</a>
+        <a href="https://github.com/Sithum02">GitHub</a>
+        <a href="https://www.linkedin.com/in/sithumdezoysa/">LinkedIn</a>
+      </nav>
+    </div>
+  </header>
+
+  <section>
+    <p>
+      I work on <strong>computer vision and deep learning</strong>, with a background in signal processing.
+      Recently I've measured how many visual tokens a small vision-language model really needs, rebuilt deep
+      joint source-channel coding for wireless image transmission from scratch, and tested which pretrained
+      features find industrial defects best. My final-year project sends the <em>meaning</em> of a video call
+      instead of its pixels.
+    </p>
+    <p>
+      Before that I spent 24 weeks as an engineering intern at IncBotic, building vision systems for PCB
+      inspection and construction-site safety. I hold a CGPA of 3.80/4.00 and graduate in May 2027.
+    </p>
+    <p class="callout">I'm applying for PhD positions starting in 2027.</p>
+  </section>
+
+  <!-- ============================== NEWS ============================== -->
+  <section>
+    <h2>News</h2>
+    <ul class="news">
+      <li><span class="date">Nov 2026</span> <span>Finished three projects, with code and results: visual-token reduction in a small vision-language model, DeepJSCC from scratch, and PatchCore anomaly detection with a backbone study (see below).</span></li>
+      <li><span class="date">Oct 2026</span> <span>Started a study of visual-token reduction in small vision-language models.</span></li>
+      <li><span class="date">Jun 2026</span> <span>Began my final-year project on semantic communication for multilingual video conferencing, supervised by Prof. Tharaka Samarasinghe and Dr. Kasun Hemachandra.</span></li>
+      <li><span class="date">May 2026</span> <span>Completed a 24-week engineering internship at IncBotic (Pvt) Ltd.</span></li>
+      <li><span class="date">2026</span> <span>Launched <a href="https://github.com/Sithum02/physics-daily">Sathkaara</a>, a free daily physics practice app for Sri Lankan A/L students.</span></li>
+      <li><span class="date">Nov 2025</span> <span>Started as an engineering intern at IncBotic, working on computer vision and signal processing.</span></li>
+    </ul>
+  </section>
+
+  <!-- ============================== PROJECTS ============================== -->
+  <section>
+    <h2>Projects</h2>
+
+    <article class="project">
+      <h3>How many visual tokens does a small vision-language model need?</h3>
+      <p>A controlled, training-free comparison of seven visual-token reduction methods at matched budgets in
+        LLaVA-OneVision-0.5B on POPE, TextVQA and MME, with paired-bootstrap significance tests and timing on a
+        laptop GPU. Selecting tokens by the vision encoder's attention beats plain pooling only at moderate budgets
+        (+7.6 TextVQA points at 169 of 729 tokens). Reading text breaks first: 60% of TextVQA accuracy is kept at
+        81 tokens, against 92% of POPE F1. An 87% cut in LLM prefill FLOPs gives only a 1.6× faster first token,
+        because the vision encoder costs as much as the whole LLM prefill.</p>
+      <figure>
+        <img src="assets/vlm_tokens.png" alt="Accuracy versus number of visual tokens kept, for six reduction methods on MME, POPE and TextVQA" loading="lazy">
+        <figcaption>Accuracy vs. visual tokens kept (dashed: all 729 tokens).</figcaption>
+      </figure>
+      <p class="meta">PyTorch · Hugging Face Transformers · LLaVA-OneVision · <a href="https://github.com/Sithum02/vlm-token-budget">code</a></p>
+    </article>
+
+    <article class="project">
+      <h3>Deep joint source-channel coding from scratch</h3>
+      <p>A from-scratch reimplementation of DeepJSCC (Bourtsoulatze, Kurka &amp; Gündüz, 2019): an autoencoder
+        whose bottleneck is a noisy wireless channel. 11 models on CIFAR-10 over AWGN and Rayleigh fading. With very
+        little bandwidth it beats JPEG plus an ideal capacity-achieving code at every SNR (+4.6 dB at 0 dB), and it
+        degrades gracefully where a fixed-rate scheme falls off a cliff. I also diagnosed why models trained on
+        32×32 images fail on large Kodak photos: the receptive field is larger than the training images.</p>
+      <figure>
+        <img src="assets/deepjscc_awgn.png" alt="PSNR versus channel SNR for DeepJSCC models and JPEG baselines at two bandwidth ratios" loading="lazy">
+        <figcaption>PSNR vs. channel SNR. Dotted grey: a JPEG scheme designed for 10 dB loses the image below it.</figcaption>
+      </figure>
+      <p class="meta">PyTorch · wireless communications · <a href="https://github.com/Sithum02/deepjscc">code</a></p>
+    </article>
+
+    <article class="project">
+      <h3>Industrial anomaly detection: PatchCore and why ConvNeXt needs standardised features</h3>
+      <p>A from-scratch PatchCore (CVPR 2022) that finds and localises defects while training only on good parts,
+        reproduced on all 15 MVTec AD categories (98.8% image / 97.9% pixel AUROC; the paper reports 99.0 / 98.1).
+        Comparing backbones, ConvNeXt-T, the better ImageNet classifier, was clearly worse (95.3%). I traced this
+        to a single "massive activation" channel holding 91% of its feature variance, which makes nearest-neighbour
+        distance almost one-dimensional. Standardising the channels raised it to 98.2%, and 1-shot detection from
+        68.7% to 85.5%. Self-supervised DINOv2 features were the best with only one good image.</p>
+      <figure>
+        <img src="assets/patchcore_heatmaps.jpg" alt="Anomaly maps from four feature extractors on cable, screw and zipper images, next to the true defect masks" loading="lazy">
+        <figcaption>Anomaly maps. Zipper row: raw ConvNeXt features give false hotspots; standardised features find the defect.</figcaption>
+      </figure>
+      <p class="meta">PyTorch · timm · MVTec AD · <a href="https://github.com/Sithum02/patchcore-mvtec">code</a></p>
+    </article>
+
+    <article class="project">
+      <h3>ConvNeXt: modernizing a ConvNet, plus Global Response Normalization <span class="tag">course project</span></h3>
+      <p>A line-by-line study of <em>A ConvNet for the 2020s</em> (CVPR 2022), extended with ConvNeXt V2's Global
+        Response Normalization and a kernel-size ablation on CIFAR-100, with a feature-collapse analysis.</p>
+      <p class="meta">PyTorch · timm · Deep Learning for Vision (EN4554)</p>
+    </article>
+
+    <article class="project">
+      <h3>Semantic communication for low-bandwidth multilingual video calls <span class="tag">final-year project</span></h3>
+      <p>Sends the meaning of a video call instead of its pixels, so the receiver can rebuild the speaker's video and
+        a translated voice. I work on the visual side: extracting facial keypoints from each frame and sending them
+        instead of the frames, regenerating the speaker's video at the receiver with lips synchronised to the
+        translated voice, and keeping audio and video in sync. Details will follow once the design is final.</p>
+      <p class="meta">PyTorch · computer vision · in progress</p>
+    </article>
+
+    <article class="project">
+      <h3>Automated optical inspection of PCBs</h3>
+      <p>YOLOv8 defect detection (missing holes, mouse bites, open circuits, shorts) reaching validation precision
+        above 0.97, first as an open-source prototype and then extended during my internship.</p>
+      <p class="meta">YOLOv8 · OpenCV · <a href="https://github.com/Sithum02/PCB_Defect_Detector">code</a></p>
+    </article>
+  </section>
+
+  <!-- ============================== EDUCATION ============================== -->
+  <section>
+    <h2>Education</h2>
+    <div class="edu">
+      <div><strong>University of Moratuwa</strong>, B.Sc. Engineering (Hons) in Electronic and Telecommunication Engineering<br>
+        <span class="muted">CGPA 3.80 / 4.00 · Dean's List</span></div>
+      <span class="date">2022 – 2027</span>
+    </div>
+    <div class="edu">
+      <div><strong>Royal College, Colombo</strong>, G.C.E. Advanced Level<br>
+        <span class="muted">Ranked 134th island-wide</span></div>
+      <span class="date">2021</span>
+    </div>
+  </section>
+
+  <footer>
+    <p>Last updated November 2026</p>
+  </footer>
+</main>
+</body>
+</html>
