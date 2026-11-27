@@ -105,10 +105,19 @@
     </article>
 
     <article class="project">
-      <h3>ConvNeXt: modernizing a ConvNet, plus Global Response Normalization <span class="tag">course project</span></h3>
-      <p>A line-by-line study of <em>A ConvNet for the 2020s</em> (CVPR 2022), extended with ConvNeXt V2's Global
-        Response Normalization and a kernel-size ablation on CIFAR-100, with a feature-collapse analysis.</p>
-      <p class="meta">PyTorch · timm · Deep Learning for Vision (EN4554)</p>
+      <h3>Reproducing ConvNeXt: ImageNet classification and COCO detection <span class="tag">course project</span></h3>
+      <p>A reproduction of <em>A ConvNet for the 2020s</em> (CVPR 2022) in a team of two. With Meta's official
+        checkpoints, ConvNeXt-T matches the paper within 0.05 points on every reported metric: 82.05% ImageNet-1K
+        top-1 (paper 82.1%), and 50.41 box AP and 43.65 mask AP on COCO val2017 with Cascade Mask R-CNN (paper
+        50.4 / 43.7). The paper's detection library, mmdetection 2.11, no longer installs, so we re-implemented the
+        whole Cascade Mask R-CNN inference path in plain PyTorch (feature pyramid, region proposals, RoIAlign, the
+        three-stage cascade and mask heads), running in half precision on two GPUs. We also ported Meta's training
+        code from PyTorch 1.8 to PyTorch 2.x.</p>
+      <figure>
+        <img src="assets/convnext_detection.jpg" alt="A COCO kitchen image with its ground-truth boxes and masks next to the boxes and masks predicted by our Cascade Mask R-CNN with a ConvNeXt-T backbone" loading="lazy">
+        <figcaption>COCO val2017: ground truth (left) and our re-implemented Cascade Mask R-CNN with ConvNeXt-T (right).</figcaption>
+      </figure>
+      <p class="meta">PyTorch · timm · pycocotools · Deep Learning for Vision (EN4554)</p>
     </article>
 
     <article class="project">
